@@ -3,7 +3,12 @@ package com.creditflow.creditflow.models;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.creditflow.creditflow.models.Types.TransactionType;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,10 +33,14 @@ public class Transaction {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "account_record_id")
+    @JoinColumn(name = "account_record_id", insertable = false, updatable = false)
     private AccountRecord accountRecord;
+    @Column(name = "account_record_id")
+    private Long accountRecordId;
 
     private BigDecimal amount;
     private LocalDateTime createdAt;
-    private String transactionType;
+
+    @Enumerated(EnumType.STRING)
+    private TransactionType transactionType;
 }
