@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.creditflow.creditflow.dto.AccountRecord.AccountRecordRequest;
 import com.creditflow.creditflow.dto.AccountRecord.ReturnAccountRecord;
 import com.creditflow.creditflow.service.AccountRecordService;
+import com.creditflow.creditflow.service.UserService;
 
 @RestController
 @RequestMapping("/accountrecords")
@@ -23,15 +24,27 @@ public class AccountRecordController {
     @Autowired
     private AccountRecordService accountRecordService;
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/")
-    public ResponseEntity<Long> createAccountRecord(@RequestBody AccountRecordRequest req){
+    public ResponseEntity<?> createAccountRecord(@RequestBody AccountRecordRequest req) {
+        System.out.println(req.getClientName());
+        if (req.getUserId() == null || req.getClientName() == null) {
+            return new ResponseEntity<>("All Filds are Mandatory", HttpStatus.BAD_REQUEST);
+        }
+        boolean userExists = userService.doesUserExists(req.getUserId());
+    if (!userExists) {
+        return new ResponseEntity<>("User ID does not exist", HttpStatus.BAD_REQUEST);
+    }
         Long recordId = accountRecordService.createAccountRecord(req.getUserId(), req.getClientName());
-        return new ResponseEntity<>(recordId,HttpStatus.CREATED);
+        return new ResponseEntity<>(recordId, HttpStatus.CREATED);
     }
+
     @GetMapping("/{userId}")
-    public ResponseEntity<List<ReturnAccountRecord>> getAccountRecordsByUserId(@PathVariable Long userId) {
+    public ResponseEntity<List<ReturnAccountRecord>> getAccountRecordsByUserId(@PathVariable Long userId) throws Exception {
         List<ReturnAccountRecord> accountRecordsList = accountRecordService.getAccountRecordsByUserId(userId);
-        return new ResponseEntity<>(accountRecordsList,HttpStatus.OK);
+        return new ResponseEntity<>(accountRecordsList, HttpStatus.OK);
     }
-    
+
 }

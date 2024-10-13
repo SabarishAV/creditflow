@@ -23,10 +23,15 @@ public class AccountRecordService {
         return accountRecordRepository.save(accountRecord).getId();
     }
 
-    public List<ReturnAccountRecord> getAccountRecordsByUserId(Long userId) {
+    public List<ReturnAccountRecord> getAccountRecordsByUserId(Long userId) throws Exception {
         List<AccountRecord> accountRecords = accountRecordRepository.findByUserId(userId);
         return accountRecords.stream()
                 .map(record -> new ReturnAccountRecord(record.getId(), record.getUserId(), record.getClientName()))
                 .collect(Collectors.toList());
     }
+
+    public boolean doesAccountRecordExists(Long accountRecordId){
+        return accountRecordRepository.existsById(accountRecordId);
+    }
+
 }

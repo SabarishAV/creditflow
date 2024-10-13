@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.creditflow.creditflow.dto.Transaction.ReturnTransaction;
 import com.creditflow.creditflow.models.Transaction;
+import com.creditflow.creditflow.service.AccountRecordService;
 import com.creditflow.creditflow.service.TransactionService;
 
 @RestController
@@ -23,8 +24,17 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
+    @Autowired
+    private AccountRecordService accountRecordService;
+
     @PostMapping("/")
-    public ResponseEntity<Long> createTransaction(@RequestBody Transaction transaction){
+    public ResponseEntity<?> createTransaction(@RequestBody Transaction transaction){
+        if(transaction.getAccountRecordId()==null || transaction.getAmount()==null || transaction.getTransactionType()==null){
+            return new ResponseEntity<>("All fields are mandatory",HttpStatus.CREATED);
+        }
+        if(!accountRecordService.doesAccountRecordExists(transaction.getAccountRecordId())){
+            return new ResponseEntity<>("Account Record with this id does not exist",HttpStatus.CREATED);
+        }
         Long transactionId = transactionService.addTransaction(transaction);
         return new ResponseEntity<>(transactionId,HttpStatus.CREATED);
     }
