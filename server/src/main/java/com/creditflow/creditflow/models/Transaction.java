@@ -32,12 +32,13 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "account_record_id", insertable = false, updatable = false)
-    private AccountRecord accountRecord;
     @Column(name = "account_record_id")
     private Long accountRecordId;
 
+    @ManyToOne
+    @JoinColumn(name = "account_record_id", insertable = false, updatable = false)
+    private AccountRecord accountRecord;
+    
     private BigDecimal amount;
     private LocalDateTime createdAt;
 

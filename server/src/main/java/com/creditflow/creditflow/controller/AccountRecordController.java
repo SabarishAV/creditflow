@@ -25,12 +25,13 @@ public class AccountRecordController {
 
     @PostMapping("/")
     public ResponseEntity<Long> createAccountRecord(@RequestBody AccountRecordRequest req){
-        Long recordId= accountRecordService.createAccountRecord(req.getUserId(), req.getClientName());
+        Long recordId = accountRecordService.createAccountRecord(req.getUserId(), req.getClientName());
         return new ResponseEntity<>(recordId,HttpStatus.CREATED);
     }
     @GetMapping("/{userId}")
-    public List<ReturnAccountRecord> getAccountRecordsByUserId(@PathVariable Long userId) {
-        return accountRecordService.getAccountRecordsByUserId(userId);
+    public ResponseEntity<List<ReturnAccountRecord>> getAccountRecordsByUserId(@PathVariable Long userId) {
+        List<ReturnAccountRecord> accountRecordsList = accountRecordService.getAccountRecordsByUserId(userId);
+        return new ResponseEntity<>(accountRecordsList,HttpStatus.OK);
     }
     
 }
