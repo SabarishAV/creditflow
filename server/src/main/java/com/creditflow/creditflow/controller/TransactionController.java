@@ -18,7 +18,7 @@ import com.creditflow.creditflow.service.AccountRecordService;
 import com.creditflow.creditflow.service.TransactionService;
 
 @RestController
-@RequestMapping("/transaction")
+@RequestMapping("/transactions")
 public class TransactionController {
 
     @Autowired
