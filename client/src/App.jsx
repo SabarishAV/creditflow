@@ -1,8 +1,13 @@
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+
 function App() {
 
   return (
     <>
-    Welcome to creditflow
+    <Routes>
+      <Route path='/' element={<Layout />}/>
+    </Routes>
     </>
   )
 }
