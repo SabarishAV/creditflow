@@ -2,4 +2,6 @@
 .css-yzjoij svg{
     display: none;
 }
-
+.MuiTypography-root {
+    font-family: 'Montserrat'!important;
+}

@@ -9,6 +9,7 @@ import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { PageContainer } from "@toolpad/core/PageContainer";
 import './style.css'
+import { Outlet } from "react-router-dom";
 
 const NAVIGATION = [
   {
@@ -57,7 +58,7 @@ const NAVIGATION = [
 ];
 
 const demoTheme = extendTheme({
-  colorSchemes: { light: true, dark: true },
+  colorSchemes: { light: true, dark: false },
   colorSchemeSelector: "class",
   breakpoints: {
     values: {
@@ -108,7 +109,7 @@ export default function Layout(props) {
     >
       <DashboardLayout>
         <PageContainer>
-          
+          <Outlet/>
         </PageContainer>
       </DashboardLayout>
     </AppProvider>

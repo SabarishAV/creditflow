@@ -1,0 +1,27 @@
+.dasboardContainer{
+    width: 100%;
+}
+.amountContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.amountContainerLeft, .amountContainerRight{
+    width: 40%;
+    background-color: rgba(66,165,245,0.2);
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+.amountContainerRightBalanceHeading, .amountContainerLeftBalanceHeading{
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-align: end;
+}
+.amountContainerRightBalance span, .amountContainerLeftBalance span{
+    font-size: 3rem;
+    font-weight: 600;
+    color: red;
+    padding-left: 3rem;
+}
