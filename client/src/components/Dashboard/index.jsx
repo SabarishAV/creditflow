@@ -1,9 +1,11 @@
+import Transaction from "../Transaction";
 import style from "./style.module.css";
 
 const Dashboard = () => {
   return (
     <>
       <div className={style.dasboardContainer}>
+
         <div className={style.amountContainer}>
           <div className={style.amountContainerLeft}>
             <p className={style.amountContainerLeftBalanceHeading}>
@@ -22,6 +24,18 @@ const Dashboard = () => {
             </p>
           </div>
         </div>
+
+        <div className={style.dashboardContentContainer}>
+          <div className={style.dashboardContentHeadingContainer}>
+            <p>Recent Transactions</p>
+          </div>
+          <div className={style.dashboardContentDetailsConatiner}>
+            <Transaction/>
+            <Transaction/>
+            <Transaction/>
+          </div>
+        </div>
+
       </div>
     </>
   );

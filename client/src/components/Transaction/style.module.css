@@ -1,0 +1,28 @@
+.transactionCard{
+    background: rgba(255, 0, 0, 0.7);
+    display: flex;
+    width: 50%;
+    border-radius: 10px;
+    padding: 1rem;
+    color: white;
+}
+.transactionAmountContainer{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex: 1;
+    padding-right: 3rem;
+}
+.transactionDateContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.transactionDateContainer p{
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+.transactionAmountContainer p{
+    font-weight: 600;
+    font-size: 1.5rem;
+}
