@@ -1,3 +1,4 @@
+import AccountRecord from "../AccountRecord";
 import Transaction from "../Transaction";
 import style from "./style.module.css";
 
@@ -31,8 +32,7 @@ const Dashboard = () => {
           </div>
           <div className={style.dashboardContentDetailsConatiner}>
             <Transaction/>
-            <Transaction/>
-            <Transaction/>
+            <AccountRecord/>
           </div>
         </div>
 
