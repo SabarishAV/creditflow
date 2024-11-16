@@ -19,6 +19,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register/")
+    // user registration
     public ResponseEntity<String> registerUser( @RequestBody User user){
         try {
             if(user.getEmail()==null || user.getUsername()==null || user.getPassword()==null){
@@ -35,6 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/login/")
+    // user login
     public ResponseEntity<String> login(@RequestBody User user){
         try {
             if(user.getUsername()==null || user.getPassword()==null){

@@ -34,6 +34,7 @@ public class JwtService {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public String generateToken(String username) {
 
         Map<String, Object> claims = new HashMap<>();
@@ -62,11 +63,9 @@ public class JwtService {
         return claimResolver.apply(claims);
     }
 
+    @SuppressWarnings("deprecation")
     private Claims extractAllClaims(String token) {
-        return Jwts.parser()
-                .setSigningKey(getKey())
-                .parseClaimsJws(token)
-                .getBody();
+        return Jwts.parserBuilder() .setSigningKey(getKey()) .build() .parseClaimsJws(token) .getBody();
     }
 
     public boolean validateToken(String token, UserDetails userDetails) {

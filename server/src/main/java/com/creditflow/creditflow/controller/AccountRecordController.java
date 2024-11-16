@@ -28,6 +28,7 @@ public class AccountRecordController {
     private UserService userService;
 
     @PostMapping("/")
+    //create account record
     public ResponseEntity<?> createAccountRecord(@RequestBody AccountRecordRequest req) {
         System.out.println(req.getClientName());
         if (req.getUserId() == null || req.getClientName() == null) {
@@ -42,6 +43,7 @@ public class AccountRecordController {
     }
 
     @GetMapping("/{userId}")
+    // get all account records by user id
     public ResponseEntity<List<ReturnAccountRecord>> getAccountRecordsByUserId(@PathVariable Long userId) throws Exception {
         List<ReturnAccountRecord> accountRecordsList = accountRecordService.getAccountRecordsByUserId(userId);
         return new ResponseEntity<>(accountRecordsList, HttpStatus.OK);

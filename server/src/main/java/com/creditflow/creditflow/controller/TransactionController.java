@@ -28,6 +28,7 @@ public class TransactionController {
     private AccountRecordService accountRecordService;
 
     @PostMapping("/")
+    // create transaction
     public ResponseEntity<?> createTransaction(@RequestBody Transaction transaction){
         if(transaction.getAccountRecordId()==null || transaction.getAmount()==null || transaction.getTransactionType()==null){
             return new ResponseEntity<>("All fields are mandatory",HttpStatus.CREATED);
@@ -40,6 +41,7 @@ public class TransactionController {
     }
 
     @GetMapping("/{accountRecordId}")
+    // get all trasactions by account record id
     public ResponseEntity<List<ReturnTransaction>> getTransactionsByAccountRecordId(@PathVariable Long accountRecordId){
         List<ReturnTransaction> transactions = transactionService.getTransactionsByAccountRecord(accountRecordId);
         return new ResponseEntity<>(transactions,HttpStatus.OK);
