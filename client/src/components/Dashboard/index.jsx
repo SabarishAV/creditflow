@@ -1,5 +1,5 @@
-import AccountRecord from "../AccountRecord";
-import Transaction from "../Transaction";
+
+import AccountRecordTransaction from "../AccountRecordTransaction";
 import style from "./style.module.css";
 
 const Dashboard = () => {
@@ -31,8 +31,11 @@ const Dashboard = () => {
             <p>Recent Transactions</p>
           </div>
           <div className={style.dashboardContentDetailsConatiner}>
-            <Transaction/>
-            <AccountRecord/>
+            <AccountRecordTransaction/>
+            <AccountRecordTransaction/>
+            <AccountRecordTransaction/>
+            <AccountRecordTransaction/>
+            <AccountRecordTransaction/>
           </div>
         </div>
 

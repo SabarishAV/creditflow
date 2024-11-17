@@ -17,12 +17,12 @@ const NAVIGATION = [
     title: "Main items",
   },
   {
-    segment: "dashboard",
+    segment: "",
     title: "Dashboard",
     icon: <DashboardIcon />,
   },
   {
-    segment: "transactions",
+    segment: "transactions/1",
     title: "Transactions",
     icon: <ShoppingCartIcon />,
   },
@@ -84,7 +84,7 @@ function useDemoRouter(initialPath) {
         navigate(path)
       }
     };
-  }, [pathname]);
+  }, [navigate, pathname]);
 
   return router;
 }

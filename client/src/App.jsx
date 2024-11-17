@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./components/Dashboard";
-import Transaction from "./components/Transaction";
+import AccountRecordTransactions from "./pages/AccountRecordTransactions";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Dashboard/>}/>
-          <Route path="/transactions" element={<Transaction/>}/>
+          <Route path="/transactions/:id" element={<AccountRecordTransactions/>}/>
         </Route>
       </Routes>
     </>
