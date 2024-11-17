@@ -9,7 +9,7 @@ import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { PageContainer } from "@toolpad/core/PageContainer";
 import './style.css'
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";  
 
 const NAVIGATION = [
   {
@@ -22,8 +22,8 @@ const NAVIGATION = [
     icon: <DashboardIcon />,
   },
   {
-    segment: "orders",
-    title: "Orders",
+    segment: "transactions",
+    title: "Transactions",
     icon: <ShoppingCartIcon />,
   },
   {
@@ -73,12 +73,16 @@ const demoTheme = extendTheme({
 
 function useDemoRouter(initialPath) {
   const [pathname, setPathname] = React.useState(initialPath);
+  const navigate = useNavigate();
 
   const router = React.useMemo(() => {
     return {
       pathname,
       searchParams: new URLSearchParams(),
-      navigate: (path) => setPathname(String(path)),
+      navigate: (path) => {
+        setPathname(String(path));
+        navigate(path)
+      }
     };
   }, [pathname]);
 
