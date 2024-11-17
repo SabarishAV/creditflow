@@ -33,3 +33,8 @@
 .rs{
     font-size: 0.7rem;
 }
+@media (max-width: 1024px) {
+    .recentTransaction{
+        width: 100%;
+    }
+}

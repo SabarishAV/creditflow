@@ -23,7 +23,7 @@ const NAVIGATION = [
   },
   {
     segment: "transactions/1",
-    title: "Transactions",
+    title: "All Transactions",
     icon: <ShoppingCartIcon />,
   },
   {
