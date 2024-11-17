@@ -22,7 +22,7 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
 
-    private String secretKey = "secret-key";
+    private String secretKey = "";
 
     public JwtService() {
         try {
@@ -34,6 +34,7 @@ public class JwtService {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public String generateToken(String username) {
 
         Map<String, Object> claims = new HashMap<>();
@@ -64,9 +65,10 @@ public class JwtService {
 
     private Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(getKey())
-                .parseClaimsJws(token)
-                .getBody();
+                .verifyWith(getKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     public boolean validateToken(String token, UserDetails userDetails) {
