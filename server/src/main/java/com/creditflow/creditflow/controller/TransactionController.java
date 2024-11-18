@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.creditflow.creditflow.dto.Dashboard.Dashboard;
 import com.creditflow.creditflow.dto.Transaction.ReturnTransaction;
 import com.creditflow.creditflow.models.Transaction;
 import com.creditflow.creditflow.service.AccountRecordService;
@@ -45,6 +46,12 @@ public class TransactionController {
     public ResponseEntity<List<ReturnTransaction>> getTransactionsByAccountRecordId(@PathVariable Long accountRecordId){
         List<ReturnTransaction> transactions = transactionService.getTransactionsByAccountRecord(accountRecordId);
         return new ResponseEntity<>(transactions,HttpStatus.OK);
+    }
+
+    @GetMapping("/dashboard/{userId}")
+    public ResponseEntity<Dashboard> getDashboard(@PathVariable Long userId){
+        Dashboard dashboard = transactionService.getDashboard(userId,0,5);
+        return new ResponseEntity<>(dashboard,HttpStatus.OK);
     }
     
 }

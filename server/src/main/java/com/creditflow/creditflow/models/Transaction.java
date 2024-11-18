@@ -35,9 +35,15 @@ public class Transaction {
     @Column(name = "account_record_id")
     private Long accountRecordId;
 
+    @Column(name = "user_id")
+    private Long userId;
+
     @ManyToOne
     @JoinColumn(name = "account_record_id", insertable = false, updatable = false)
     private AccountRecord accountRecord;
+    @ManyToOne
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    private User user;
     
     private BigDecimal amount;
     private LocalDateTime createdAt;
