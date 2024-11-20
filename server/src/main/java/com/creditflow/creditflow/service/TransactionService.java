@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.creditflow.creditflow.dto.Dashboard.Dashboard;
 import com.creditflow.creditflow.dto.Dashboard.DashboardAmounts;
 import com.creditflow.creditflow.dto.Transaction.ReturnTransaction;
+import com.creditflow.creditflow.dto.Transaction.TotalTransactionOfAccountRecord;
 import com.creditflow.creditflow.dto.Transaction.TransactionWithClientName;
 import com.creditflow.creditflow.models.Transaction;
 import com.creditflow.creditflow.repository.TransactionRepository;
@@ -38,8 +39,14 @@ public class TransactionService {
     public Dashboard getDashboard(Long userId,int page, int size){
         DashboardAmounts amounts = transactionRepository.getTodaysTrasactionAmountAndTotalBalance(userId);
         Pageable pageable = PageRequest.of(page, size);
-        Page<TransactionWithClientName> result = transactionRepository.getRecentTransactionsWithClientNames(userId, pageable);
+        Page<TransactionWithClientName> result = transactionRepository.getAllTransactionsWithClientNames(userId, pageable);
         return new Dashboard(amounts.getTodaysTotalTransaction(), amounts.getBalance(), result.getContent());
+    }
+
+    public Page<TotalTransactionOfAccountRecord> listAllAccountRecordsWithBalance(Long userId,int page,int size){
+        Pageable pageable = PageRequest.of(page, size);
+        Page<TotalTransactionOfAccountRecord> accountRecords = transactionRepository.getTotalTransactionForAccountRecordsByUserId(userId,pageable);
+        return accountRecords;
     }
 
 }   

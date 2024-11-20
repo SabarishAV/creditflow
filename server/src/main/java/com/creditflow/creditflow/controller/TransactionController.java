@@ -3,6 +3,7 @@ package com.creditflow.creditflow.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.creditflow.creditflow.dto.Dashboard.Dashboard;
 import com.creditflow.creditflow.dto.Transaction.ReturnTransaction;
+import com.creditflow.creditflow.dto.Transaction.TotalTransactionOfAccountRecord;
 import com.creditflow.creditflow.models.Transaction;
 import com.creditflow.creditflow.service.AccountRecordService;
 import com.creditflow.creditflow.service.TransactionService;
@@ -52,6 +54,12 @@ public class TransactionController {
     public ResponseEntity<Dashboard> getDashboard(@PathVariable Long userId){
         Dashboard dashboard = transactionService.getDashboard(userId,0,5);
         return new ResponseEntity<>(dashboard,HttpStatus.OK);
+    }
+
+    @GetMapping("/balances/{userId}/{page}/{size}")
+    public ResponseEntity<Page<TotalTransactionOfAccountRecord>> getBalances(@PathVariable Long userId,@PathVariable int page, @PathVariable int size){
+        Page<TotalTransactionOfAccountRecord> balances = transactionService.listAllAccountRecordsWithBalance(userId,page,size);
+        return new ResponseEntity<>(balances,HttpStatus.OK);
     }
     
 }
