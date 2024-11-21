@@ -1,6 +1,7 @@
 package com.creditflow.creditflow.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class AccountRecordService {
 
     @Autowired
     private AccountRecordRepository accountRecordRepository;
-    
+
     // create new account record
     public Long createAccountRecord(Long userId, String clientName) {
         AccountRecord accountRecord = new AccountRecord();
@@ -25,6 +26,7 @@ public class AccountRecordService {
     }
 
     // get all account records for userId
+    // not using
     public List<ReturnAccountRecord> getAccountRecordsByUserId(Long userId) throws Exception {
         List<AccountRecord> accountRecords = accountRecordRepository.findByUserId(userId);
         return accountRecords.stream()
@@ -33,8 +35,13 @@ public class AccountRecordService {
     }
 
     // returns a boolean if account record exist
-    public boolean doesAccountRecordExists(Long accountRecordId){
+    public boolean doesAccountRecordExists(Long accountRecordId) {
         return accountRecordRepository.existsById(accountRecordId);
     }
 
+    // returns account record name
+    public Optional<String> getAccountRecordName(Long accountRecordId) {
+        Optional<AccountRecord> optionalAccountRecord = accountRecordRepository.findById(accountRecordId);
+        return optionalAccountRecord.map(AccountRecord::getClientName);
+    }
 }

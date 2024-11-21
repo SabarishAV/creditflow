@@ -1,6 +1,7 @@
 package com.creditflow.creditflow.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,17 @@ public class AccountRecordController {
     public ResponseEntity<List<ReturnAccountRecord>> getAccountRecordsByUserId(@PathVariable Long userId) throws Exception {
         List<ReturnAccountRecord> accountRecordsList = accountRecordService.getAccountRecordsByUserId(userId);
         return new ResponseEntity<>(accountRecordsList, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{accountRecordId}")
+    // gets account record name for account record is
+    public ResponseEntity<Optional<String>> getAccountRecordName(@PathVariable Long accountRecordId){
+        Optional<String> accountRecordName = accountRecordService.getAccountRecordName(accountRecordId);
+        if(accountRecordName.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else{
+            return new ResponseEntity<>(accountRecordName,HttpStatus.OK);
+        }
     }
 
 }
