@@ -28,11 +28,13 @@ public class UserService {
 
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
 
+    // create user
     public User registerUser(User user){
         user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
+    // user login
     public String verify(User user){
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
 

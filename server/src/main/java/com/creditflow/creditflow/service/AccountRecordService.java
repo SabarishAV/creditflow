@@ -15,7 +15,8 @@ public class AccountRecordService {
 
     @Autowired
     private AccountRecordRepository accountRecordRepository;
-
+    
+    // create new account record
     public Long createAccountRecord(Long userId, String clientName) {
         AccountRecord accountRecord = new AccountRecord();
         accountRecord.setUserId(userId);
@@ -23,6 +24,7 @@ public class AccountRecordService {
         return accountRecordRepository.save(accountRecord).getId();
     }
 
+    // get all account records for userId
     public List<ReturnAccountRecord> getAccountRecordsByUserId(Long userId) throws Exception {
         List<AccountRecord> accountRecords = accountRecordRepository.findByUserId(userId);
         return accountRecords.stream()
@@ -30,6 +32,7 @@ public class AccountRecordService {
                 .collect(Collectors.toList());
     }
 
+    // returns a boolean if account record exist
     public boolean doesAccountRecordExists(Long accountRecordId){
         return accountRecordRepository.existsById(accountRecordId);
     }

@@ -17,6 +17,7 @@ import lombok.Setter;
 public class ReturnTransaction {
     private Long id;
     private Long accountRecordId;
+    private Long userId;
     private BigDecimal amount;
     private LocalDateTime createdAt;
     private TransactionType transactionType;

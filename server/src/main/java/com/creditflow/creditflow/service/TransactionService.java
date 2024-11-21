@@ -24,18 +24,21 @@ public class TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
 
+    // create transaction
     public Long addTransaction(Transaction transaction) {
         transaction.setCreatedAt(LocalDateTime.now());
         return transactionRepository.save(transaction).getId();
     }
 
+    // retrun all transactions of an account record
     public List<ReturnTransaction> getTransactionsByAccountRecord(Long accountRecordId) {
         List<Transaction> transactions = transactionRepository.findByAccountRecordId(accountRecordId);
         return transactions.stream()
-                .map(transaction -> new ReturnTransaction(transaction.getId(), transaction.getAccountRecordId(), transaction.getAmount(), transaction.getCreatedAt(), transaction.getTransactionType()))
+                .map(transaction -> new ReturnTransaction(transaction.getId(), transaction.getAccountRecordId(), transaction.getUserId(), transaction.getAmount(), transaction.getCreatedAt(), transaction.getTransactionType()))
                 .collect(Collectors.toList());
     }
 
+    // get data for dashboard page
     public Dashboard getDashboard(Long userId,int page, int size){
         DashboardAmounts amounts = transactionRepository.getTodaysTrasactionAmountAndTotalBalance(userId);
         Pageable pageable = PageRequest.of(page, size);
@@ -43,6 +46,7 @@ public class TransactionService {
         return new Dashboard(amounts.getTodaysTotalTransaction(), amounts.getBalance(), result.getContent());
     }
 
+    // get data for balance page
     public Page<TotalTransactionOfAccountRecord> listAllAccountRecordsWithBalance(Long userId,int page,int size){
         Pageable pageable = PageRequest.of(page, size);
         Page<TotalTransactionOfAccountRecord> accountRecords = transactionRepository.getTotalTransactionForAccountRecordsByUserId(userId,pageable);

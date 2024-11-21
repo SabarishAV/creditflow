@@ -51,12 +51,14 @@ public class TransactionController {
     }
 
     @GetMapping("/dashboard/{userId}")
+    // get all details for dashboard page
     public ResponseEntity<Dashboard> getDashboard(@PathVariable Long userId){
         Dashboard dashboard = transactionService.getDashboard(userId,0,5);
         return new ResponseEntity<>(dashboard,HttpStatus.OK);
     }
 
-    @GetMapping("/balances/{userId}/{page}/{size}")
+    @GetMapping("/balance/{userId}/{page}/{size}")
+    // get all details for balance page
     public ResponseEntity<Page<TotalTransactionOfAccountRecord>> getBalances(@PathVariable Long userId,@PathVariable int page, @PathVariable int size){
         Page<TotalTransactionOfAccountRecord> balances = transactionService.listAllAccountRecordsWithBalance(userId,page,size);
         return new ResponseEntity<>(balances,HttpStatus.OK);
