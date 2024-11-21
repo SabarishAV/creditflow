@@ -1,7 +1,5 @@
 package com.creditflow.creditflow.repository;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,7 +13,9 @@ import com.creditflow.creditflow.models.Transaction;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
-    List<Transaction> findByAccountRecordId(Long accountRecordId);
+    // list all transactions of account record id and user id
+    // filters: pagination
+    Page<Transaction> findByAccountRecordIdAndUserId(Long accountRecordId, Long userId, Pageable pageable);
 
     // get todays transaction amount and total balance for a user
     @Query("SELECT new com.creditflow.creditflow.dto.Dashboard.DashboardAmounts("

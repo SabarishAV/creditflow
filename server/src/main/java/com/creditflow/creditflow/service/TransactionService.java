@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,12 +31,20 @@ public class TransactionService {
         return transactionRepository.save(transaction).getId();
     }
 
-    // retrun all transactions of an account record
-    public List<ReturnTransaction> getTransactionsByAccountRecord(Long accountRecordId) {
-        List<Transaction> transactions = transactionRepository.findByAccountRecordId(accountRecordId);
-        return transactions.stream()
-                .map(transaction -> new ReturnTransaction(transaction.getId(), transaction.getAccountRecordId(), transaction.getUserId(), transaction.getAmount(), transaction.getCreatedAt(), transaction.getTransactionType()))
+    // retrun all transactions of an account record using account record id and user id
+    public Page<ReturnTransaction> getAllTransactionsByAccountRecordAndUserId(Long accountRecordId, Long userId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Transaction> transactions = transactionRepository.findByAccountRecordIdAndUserId(accountRecordId,userId,pageable);
+        List<ReturnTransaction> returnTransactions = transactions.getContent().stream()
+                .map(transaction -> new ReturnTransaction(
+                        transaction.getId(), 
+                        transaction.getAccountRecordId(), 
+                        transaction.getUserId(), 
+                        transaction.getAmount(), 
+                        transaction.getCreatedAt(), 
+                        transaction.getTransactionType()))
                 .collect(Collectors.toList());
+        return new PageImpl<>(returnTransactions, pageable, transactions.getTotalElements());
     }
 
     // get data for dashboard page
