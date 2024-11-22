@@ -1,7 +1,8 @@
 .accountRecord{
     width: 50%;
     display: flex;
-    background-color: rgba(0, 0, 0, 0.3);
+    /* background-color: rgba(0, 0, 0, 0.3); */
+    background-color: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     justify-content: space-between;
     align-items: center;
@@ -12,4 +13,9 @@
 }
 .accountRecordBalance{
     color: red;
+}
+@media (max-width: 1024px) {
+    .accountRecord{
+        width: 100%;
+    }
 }

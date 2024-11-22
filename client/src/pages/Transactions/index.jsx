@@ -1,7 +1,7 @@
 import AccountRecordTransaction from "../../components/AccountRecordTransaction";
 import style from './style.module.css'
 
-const AccountRecordTransactions = ()=>{
+const Transactions = ()=>{
     return (
         <div className={style.allTransactionsContainer}>
             <AccountRecordTransaction/>
@@ -19,4 +19,4 @@ const AccountRecordTransactions = ()=>{
 }
 
 
-export default AccountRecordTransactions;
+export default Transactions;

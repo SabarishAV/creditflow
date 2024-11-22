@@ -1,5 +1,5 @@
 
-import AccountRecordTransaction from "../AccountRecordTransaction";
+import AccountRecordTransaction from "../../components/AccountRecordTransaction";
 import style from "./style.module.css";
 
 const Dashboard = () => {
