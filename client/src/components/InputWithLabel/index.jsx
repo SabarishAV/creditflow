@@ -57,11 +57,11 @@ const StyledLabel = styled('label')(({ theme }) => ({
 
 // InnerInput component with label passed as a prop
 // eslint-disable-next-line react/prop-types
-const InnerInput = React.forwardRef(function InnerInput({ labelValue, ...props }, ref) {
+const InnerInput = React.forwardRef(function InnerInput({ labelValue, onChange, ...props }, ref) {
   const id = React.useId();
   return (
     <React.Fragment>
-      <StyledInput {...props} ref={ref} id={id} />
+      <StyledInput {...props} ref={ref} id={id} onChange={onChange}/>
       <StyledLabel htmlFor={id}>{labelValue}</StyledLabel> {/* Dynamically use labelValue */}
     </React.Fragment>
   );
@@ -69,7 +69,7 @@ const InnerInput = React.forwardRef(function InnerInput({ labelValue, ...props }
 
 // Main component that receives `labelValue` as a prop
 // eslint-disable-next-line react/prop-types
-export default function FloatingLabelInput({ labelValue,helperText,placeholder,ispassword }) {
+export default function FloatingLabelInput({ labelValue,helperText,placeholder,ispassword,onChange }) {
   return (
     <>
     <Input
@@ -80,11 +80,12 @@ export default function FloatingLabelInput({ labelValue,helperText,placeholder,i
           placeholder: `${placeholder}`,
           type: ispassword==true?"password":"",
           labelValue,  // Pass labelValue to InnerInput
+          onChange,
         },
       }}
       sx={{ '--Input-minHeight': '56px', '--Input-radius': '6px', 'width': '70%' }}
     />
-    <FormHelperText>{helperText}</FormHelperText>
+    <FormHelperText style={{color:'red'}}>{helperText}</FormHelperText>
     </>
   );
 }
