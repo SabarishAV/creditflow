@@ -7,11 +7,13 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { PageContainer } from "@toolpad/core/PageContainer";
-import './style.css'
+import "./style.css";
 import { Outlet, useNavigate } from "react-router-dom";
-import PaidIcon from '@mui/icons-material/Paid';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import LogoutIcon from '@mui/icons-material/Logout';
+import PaidIcon from "@mui/icons-material/Paid";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import LogoutIcon from "@mui/icons-material/Logout";
+import Cookies from "js-cookie";
+import validateToken from '../../middleware/validateToken';
 
 const NAVIGATION = [
   {
@@ -93,22 +95,30 @@ function useDemoRouter(initialPath) {
       searchParams: new URLSearchParams(),
       navigate: (path) => {
         setPathname(String(path));
-        navigate(path)
-      }
+        navigate(path);
+      },
     };
   }, [navigate, pathname]);
 
   return router;
 }
 
-
 export default function Layout(props) {
 
-  React.useEffect(()=>{
-    const element = document.querySelector('.css-1je49cu-MuiTypography-root');
-    element.textContent = "creditflow"
-  },[]);
-  
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const element = document.querySelector(".css-1je49cu-MuiTypography-root");
+    element.textContent = "creditflow";
+
+    const token = Cookies.get("token");
+    const istokenValid = validateToken(token);
+    if(!istokenValid){
+      navigate('/login')
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // eslint-disable-next-line react/prop-types
   const { window } = props;
 
@@ -125,7 +135,7 @@ export default function Layout(props) {
     >
       <DashboardLayout>
         <PageContainer>
-          <Outlet/>
+          <Outlet />
         </PageContainer>
       </DashboardLayout>
     </AppProvider>

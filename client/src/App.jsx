@@ -13,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+        {/* implemented route protection in Layout component */}
         <Route element={<Layout />}>
           <Route path="/" element={<Dashboard/>}/>
           <Route path="/transactions" element={<Transactions/>}/>

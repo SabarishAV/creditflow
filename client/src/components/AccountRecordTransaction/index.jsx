@@ -1,16 +1,17 @@
+/* eslint-disable react/prop-types */
 import style from "./style.module.css";
 
-const AccountRecordTransaction = () => {
+const AccountRecordTransaction = ({ index, transaction }) => {
   return (
     <div className={style.recentTransaction}>
-      <p className={style.transactionType}>DEBIT</p>
+      <p className={style.transactionType}>{transaction.transactionType}</p>
       <div className={style.recentTransactionLower}>
         <p>
-          <span>1</span>.
+          <span>{index + 1}</span>.
         </p>
-        <p>John Doe</p>
+        <p>{transaction.accountRecordName}</p>
         <p>
-          <span>5000</span>
+          <span>{transaction.amount}</span>
           <span className={style.rs}>Rs</span>
         </p>
       </div>

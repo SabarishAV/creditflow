@@ -1,19 +1,48 @@
-
+import { useEffect, useState } from "react";
 import AccountRecordTransaction from "../../components/AccountRecordTransaction";
+import getUserId from "../../middleware/getUserId";
 import style from "./style.module.css";
+import axios from "axios";
+import Cookie from "js-cookie";
 
 const Dashboard = () => {
+  const [dashboardData, setDashboardData] = useState();
+  const token = Cookie.get("token");
+  const userId = getUserId();
+  let index = 0;
+
+  const fetchDashboard = async () => {
+    const response = await axios.get(
+      `${import.meta.env.VITE_BE_URL}/transactions/dashboard/${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    setDashboardData(response.data);
+  };
+
+  useEffect(() => {
+    fetchDashboard();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <div className={style.dasboardContainer}>
-
         <div className={style.amountContainer}>
           <div className={style.amountContainerLeft}>
             <p className={style.amountContainerLeftBalanceHeading}>
               Recieved Today
             </p>
             <p className={style.amountContainerLeftBalance}>
-              <span>3500</span> Rs
+              <span>
+                {!dashboardData
+                  ? "Loading..."
+                  : dashboardData.todaysTotalTransaction}
+              </span>{" "}
+              Rs
             </p>
           </div>
           <div className={style.amountContainerRight}>
@@ -21,7 +50,10 @@ const Dashboard = () => {
               Aggregate Balance
             </p>
             <p className={style.amountContainerRightBalance}>
-              <span>10000</span> Rs
+              <span>
+                {!dashboardData ? "Loading..." : dashboardData.balance}
+              </span>{" "}
+              Rs
             </p>
           </div>
         </div>
@@ -31,14 +63,21 @@ const Dashboard = () => {
             <p>Recent Transactions</p>
           </div>
           <div className={style.dashboardContentDetailsConatiner}>
-            <AccountRecordTransaction/>
-            <AccountRecordTransaction/>
-            <AccountRecordTransaction/>
-            <AccountRecordTransaction/>
-            <AccountRecordTransaction/>
+            {!dashboardData ? (
+              <p>Loading...</p>
+            ) : (
+              <>
+                {dashboardData.transactions?.map((transaction) => (
+                  <AccountRecordTransaction
+                    key={transaction.id}
+                    index={index++}
+                    transaction={transaction}
+                  />
+                ))}
+              </>
+            )}
           </div>
         </div>
-
       </div>
     </>
   );
