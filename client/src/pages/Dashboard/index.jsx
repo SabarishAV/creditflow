@@ -4,27 +4,37 @@ import getUserId from "../../middleware/getUserId";
 import style from "./style.module.css";
 import axios from "axios";
 import Cookie from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState();
   const token = Cookie.get("token");
   const userId = getUserId();
+  const navigate = useNavigate()
   let index = 0;
 
   const fetchDashboard = async () => {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BE_URL}/transactions/dashboard/${userId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    setDashboardData(response.data);
+    try{
+      const response = await axios.get(
+        `${import.meta.env.VITE_BE_URL}/transactions/dashboard/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setDashboardData(response.data);
+    }catch{
+      navigate("/login")
+    }
   };
 
   useEffect(() => {
-    fetchDashboard();
+    try{
+      fetchDashboard();
+    }catch{
+      navigate("/login");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

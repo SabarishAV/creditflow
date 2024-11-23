@@ -2,7 +2,7 @@
     width: 50%;
     display: flex;
     /* background-color: rgba(0, 0, 0, 0.3); */
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     justify-content: space-between;
     align-items: center;
@@ -10,9 +10,7 @@
     font-weight: 600;
     font-size: 1.2rem;
     padding-inline: 2rem;
-}
-.accountRecordBalance{
-    color: red;
+    cursor: pointer;
 }
 @media (max-width: 1024px) {
     .accountRecord{

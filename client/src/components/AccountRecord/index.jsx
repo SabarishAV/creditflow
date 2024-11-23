@@ -1,16 +1,17 @@
+/* eslint-disable react/prop-types */
 import style from './style.module.css'
 
-const AccountRecord = ()=>{
+const AccountRecord = ({index,accountRecord,onClick,color})=>{
     return (
-        <div className={style.accountRecord}>
+        <div onClick={onClick} className={style.accountRecord}>
             <div className={style.accountRecordSlNo}>
-                <p><span>1</span>. </p>
+                <p><span>{index}</span>. </p>
             </div>
             <div className={style.accountRecordName}>
-                <p>Xyz Trader</p>
+                <p>{accountRecord.accountRecordName}</p>
             </div>
             <div className={style.accountRecordBalance}>
-                <p>500Rs</p>
+                <p style={{color:color}}>{accountRecord.totalAmount>0?`+${accountRecord.totalAmount}`:accountRecord.totalAmount}Rs</p>
             </div>
         </div>
     )
