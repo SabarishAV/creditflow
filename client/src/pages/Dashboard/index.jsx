@@ -69,6 +69,7 @@ const Dashboard = () => {
               <>
                 {dashboardData.transactions?.map((transaction) => (
                   <AccountRecordTransaction
+                  bgColor={transaction.transactionType=="CREDIT"?"#02a145":"#f10238"}
                     key={transaction.id}
                     index={index++}
                     transaction={transaction}

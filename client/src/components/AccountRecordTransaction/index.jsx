@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import style from "./style.module.css";
 
-const AccountRecordTransaction = ({ index, transaction }) => {
+const AccountRecordTransaction = ({ index, transaction, bgColor }) => {
   return (
-    <div className={style.recentTransaction}>
+    <div style={{backgroundColor:bgColor}} className={style.recentTransaction}>
       <p className={style.transactionType}>{transaction.transactionType}</p>
       <div className={style.recentTransactionLower}>
         <p>
