@@ -35,9 +35,11 @@ public class JwtService {
     }
 
     @SuppressWarnings("deprecation")
-    public String generateToken(String username) {
+    public String generateToken(String username,Long userId) {
 
         Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", String.valueOf(userId));
+        // claims.put("sub", username);
 
         return Jwts
                 .builder()
