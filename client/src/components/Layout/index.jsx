@@ -111,9 +111,14 @@ export default function Layout(props) {
     const element = document.querySelector(".css-1je49cu-MuiTypography-root");
     element.textContent = "creditflow";
 
-    const token = Cookies.get("token");
-    const istokenValid = validateToken(token);
-    if(!istokenValid){
+    try{
+      const token = Cookies.get("token");
+      if(token){
+        validateToken(token);
+      }else{
+        throw new Error("No token")
+      }
+    }catch{
       navigate('/login')
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

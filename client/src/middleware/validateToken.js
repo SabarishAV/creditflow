@@ -1,10 +1,15 @@
 const validateToken = (token) => {
-    if(!token){
-        return;
+  try {
+    if (token) {
+      const decodedToken = JSON.parse(atob(token.split(".")[1])); // Decode JWT payload
+      const expirationDate = new Date(decodedToken.exp * 1000); // Convert exp to Date
+      return expirationDate > new Date();
+    } else {
+      throw new Error("No token");
     }
-    const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decode JWT payload
-    const expirationDate = new Date(decodedToken.exp * 1000); // Convert exp to Date
-    return expirationDate > new Date();
+  } catch {
+    return new Error("Invalid token");
+  }
 };
 
 export default validateToken;

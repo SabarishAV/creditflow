@@ -39,11 +39,6 @@ const Balance = () => {
     fetchBalacePageData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNo]);
-  // if (balancePageData) {
-  // console.log(balancePageData);
-  //   console.log(balancePageData.totalPages);
-  //   setTotalPages(balancePageData.totalPages);
-  // }
 
   return (
     <>
