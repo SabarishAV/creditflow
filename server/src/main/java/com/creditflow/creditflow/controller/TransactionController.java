@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.creditflow.creditflow.dto.Dashboard.Dashboard;
 import com.creditflow.creditflow.dto.Transaction.ReturnTransaction;
 import com.creditflow.creditflow.dto.Transaction.TotalTransactionOfAccountRecord;
+import com.creditflow.creditflow.dto.Transaction.TransactionWithClientName;
 import com.creditflow.creditflow.models.Transaction;
 import com.creditflow.creditflow.service.AccountRecordService;
 import com.creditflow.creditflow.service.TransactionService;
@@ -72,6 +73,13 @@ public class TransactionController {
     public ResponseEntity<Page<TotalTransactionOfAccountRecord>> getBalances(@PathVariable Long userId, @PathVariable int page, @PathVariable int size) {
         Page<TotalTransactionOfAccountRecord> balances = transactionService.listAllAccountRecordsWithBalance(userId, page, size);
         return new ResponseEntity<>(balances, HttpStatus.OK);
+    }
+
+    @GetMapping("/all/{userId}")
+    // get all transactions for transactions page
+    public ResponseEntity<Page<TransactionWithClientName>> getTransactionsPage(@PathVariable Long userId, @RequestParam int page, @RequestParam int size) {
+        Page<TransactionWithClientName> transactions = transactionService.getTransactionsPage(userId, page, size);
+        return new ResponseEntity<>(transactions, HttpStatus.OK);
     }
 
 }

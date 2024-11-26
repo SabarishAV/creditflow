@@ -62,4 +62,10 @@ public class TransactionService {
         return accountRecords;
     }
 
+    //get data for transactions page
+    public Page<TransactionWithClientName> getTransactionsPage(Long userId, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        Page<TransactionWithClientName> transactions = transactionRepository.getAllTransactionsWithClientNames(userId, pageable);
+        return transactions;
+    }
 }   
