@@ -1,3 +1,6 @@
+.transactionsForAccountRecordsPageContainer{
+    flex-direction: column;
+}
 .transactionsContainer{
     display: flex;
     justify-content: center;
@@ -12,4 +15,8 @@
 }
 .transactionsHeading p span{
     font-weight: 700;
+}
+.addNewTransactionButton{
+    margin-bottom: 1rem !important;
+    width: fit-content;
 }

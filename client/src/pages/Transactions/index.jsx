@@ -42,16 +42,22 @@ const Transactions = () => {
     <>
       {transactions ? (
         <div className={style.accountRecordsContainer}>
-          {transactions.content?.map((transaction) => (
-            <AccountRecordTransaction
-              key={transaction.id}
-              index={index++}
-              transaction={transaction}
-              bgColor={
-                transaction.transactionType == "CREDIT" ? "#02a145" : "#f10238"
-              }
-            />
-          ))}
+          {transactions.content.length >= 1 ? (
+            transactions.content?.map((transaction) => (
+              <AccountRecordTransaction
+                key={transaction.id}
+                index={index++}
+                transaction={transaction}
+                bgColor={
+                  transaction.transactionType == "CREDIT"
+                    ? "#02a145"
+                    : "#f10238"
+                }
+              />
+            ))
+          ) : (
+            <p>No transactions</p>
+          )}
         </div>
       ) : (
         "Loading..."

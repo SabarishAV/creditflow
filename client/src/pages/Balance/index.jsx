@@ -72,17 +72,21 @@ const Balance = () => {
               <AddIcon />
               Add New Client
             </Button>
-            {balancePageData.content?.map((accountRecord) => (
-              <AccountRecord
-                key={accountRecord.accountRecordId}
-                index={++index}
-                accountRecord={accountRecord}
-                color={accountRecord.totalAmount > 0 ? "#02a145" : "#f10238"}
-                onClick={() => {
-                  navigate(`/balance/${accountRecord.accountRecordId}`);
-                }}
-              />
-            ))}
+            {balancePageData.content.length >= 1 ? (
+              balancePageData.content?.map((accountRecord) => (
+                <AccountRecord
+                  key={accountRecord.accountRecordId}
+                  index={++index}
+                  accountRecord={accountRecord}
+                  color={accountRecord.totalAmount > 0 ? "#02a145" : "#f10238"}
+                  onClick={() => {
+                    navigate(`/balance/${accountRecord.accountRecordId}`);
+                  }}
+                />
+              ))
+            ) : (
+              <p>No clients</p>
+            )}
           </div>
         </>
       )}
