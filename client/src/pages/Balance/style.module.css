@@ -5,4 +5,16 @@
     flex-direction: column;
     gap: 0.5rem;
     margin-bottom: 1rem;
+    position: relative;
+    width: 100%;
+}
+.addNewClientButton{
+    position: absolute;
+    left: 34%;
+}
+
+@media (max-width: 1200px) {
+    .addNewClientButton{
+        left: 0rem;
+    }
 }

@@ -28,7 +28,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     DashboardAmounts getTodaysTrasactionAmountAndTotalBalance(@Param("userId") Long userId);
 
     // get all transactions for user
-    // filters: page - not showing in api
+    // filters: pagination
     @Query("SELECT new com.creditflow.creditflow.dto.Transaction.TransactionWithClientName("
             + "t.id, ar.id, ar.clientName, t.user.id, t.amount, t.createdAt, t.transactionType) "
             + "FROM Transaction t "
@@ -46,7 +46,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     + "FROM AccountRecord ar "
     + "LEFT JOIN ar.transactions t ON ar.id = t.accountRecord.id AND t.user.id = ar.userId "
     + "WHERE ar.userId = :userId "
-    + "GROUP BY ar.id, ar.clientName")
+    + "GROUP BY ar.id, ar.clientName "
+    + "ORDER BY ar.id DESC")
     Page<TotalTransactionOfAccountRecord> getTotalTransactionForAccountRecordsByUserId(
             @Param("userId") Long userId, Pageable pageable);
 /*

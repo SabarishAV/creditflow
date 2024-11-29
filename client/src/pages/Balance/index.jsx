@@ -6,8 +6,12 @@ import getUserId from "../../middleware/getUserId";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
+import Button from "@mui/material/Button";
+import AddIcon from "@mui/icons-material/Add";
+import CreateAccountRecord from "../../components/CreateAccountRecord";
 
 const Balance = () => {
+  const [display, setDisplay] = useState("flex");
   const [balancePageData, setBalancePageData] = useState();
   const [totalPages, setTotalPages] = useState();
   const [pageNo, setPageNo] = useState(0);
@@ -16,10 +20,14 @@ const Balance = () => {
   const navigate = useNavigate();
   let index = 0;
 
+  const toggleDisplay = () => {
+    setDisplay(display === "none" ? "flex" : "none");
+  };
+
   const fetchBalacePageData = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BE_URL}/transactions/balance/${userId}/${pageNo}/4`,
+        `${import.meta.env.VITE_BE_URL}/transactions/balance/${userId}/${pageNo}/5`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -45,23 +53,43 @@ const Balance = () => {
       {!balancePageData ? (
         "Loading..."
       ) : (
-        <div className={style.accountRecordsContainer}>
-          {balancePageData.content?.map((accountRecord) => (
-            <AccountRecord
-              key={accountRecord.accountRecordId}
-              index={++index}
-              accountRecord={accountRecord}
-              color={accountRecord.totalAmount > 0 ? "#02a145" : "#f10238"}
+        <>
+          <CreateAccountRecord
+            display={display === "none" ? "flex" : "none"}
+            setDisplay={setDisplay}
+          />
+          <div
+            style={{ display: display }}
+            className={style.accountRecordsContainer}
+          >
+            <Button
+              className={style.addNewClientButton}
+              variant="contained"
               onClick={() => {
-                navigate(`/balance/${accountRecord.accountRecordId}`);
+                toggleDisplay();
               }}
-            />
-          ))}
-        </div>
+            >
+              <AddIcon />
+              Add New Client
+            </Button>
+            {balancePageData.content?.map((accountRecord) => (
+              <AccountRecord
+                key={accountRecord.accountRecordId}
+                index={++index}
+                accountRecord={accountRecord}
+                color={accountRecord.totalAmount > 0 ? "#02a145" : "#f10238"}
+                onClick={() => {
+                  navigate(`/balance/${accountRecord.accountRecordId}`);
+                }}
+              />
+            ))}
+          </div>
+        </>
       )}
       <Pagination
+        style={{ display: display }}
         count={totalPages}
-        page={pageNo+1}
+        page={pageNo + 1}
         color="primary"
         onChange={(e, value) => {
           setPageNo(value - 1);

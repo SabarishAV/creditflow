@@ -1,12 +1,11 @@
 .accountRecord{
     width: 50%;
     display: flex;
-    /* background-color: rgba(0, 0, 0, 0.3); */
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(66, 165, 245, 0.2);
     border-radius: 10px;
     justify-content: space-between;
     align-items: center;
-    color: white;
+    color: rgba(0, 0, 0,0.6);
     font-weight: 600;
     font-size: 1.2rem;
     padding-inline: 2rem;

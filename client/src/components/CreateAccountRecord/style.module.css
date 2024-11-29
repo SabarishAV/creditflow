@@ -1,0 +1,35 @@
+.createAccountRecordContainer{
+    position: relative;
+    background-color: rgba(66, 165, 245, 0.2);
+    border-radius: 20px;
+    padding: 1rem;
+    padding-inline: 3rem;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+.createAccountRecordHeading{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.createAccountRecordHeading p {
+    font-size: 2rem;
+    font-weight: 600;
+}
+.inputAndLabel{
+    width: 100%;
+}
+.clientNameInput input{
+    height: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+.apiResponseMessage{
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
