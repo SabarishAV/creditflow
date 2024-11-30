@@ -3,8 +3,10 @@ package com.creditflow.creditflow.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.creditflow.creditflow.dto.Dashboard.DashboardAmounts;
 import com.creditflow.creditflow.dto.Transaction.TotalTransactionOfAccountRecord;
@@ -50,19 +52,26 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     + "ORDER BY ar.id DESC")
     Page<TotalTransactionOfAccountRecord> getTotalTransactionForAccountRecordsByUserId(
             @Param("userId") Long userId, Pageable pageable);
-/*
--- corresponding psql query
-SELECT ar.id AS account_record_id, 
-       ar.client_name,
-       SUM(CASE 
-               WHEN t.transaction_type = 'DEBIT' THEN -t.amount 
-               WHEN t.transaction_type = 'CREDIT' THEN t.amount 
-               ELSE 0 
-           END) AS total
-FROM account_record ar
-LEFT JOIN Transaction t ON ar.id = t.account_record_id AND t.user_id = ar.user_id
-WHERE ar.user_id = 1
-GROUP BY ar.id, ar.client_name;
-*/
+        //     -- corresponding psql query 
+        /*
+            SELECT ar.id AS account_record_id, 
+                   ar.client_name,
+                   SUM(CASE 
+                           WHEN t.transaction_type = 'DEBIT' THEN -t.amount 
+                           WHEN t.transaction_type = 'CREDIT' THEN t.amount 
+                           ELSE 0 
+                       END) AS total
+            FROM account_record ar
+            LEFT JOIN Transaction t ON ar.id = t.account_record_id AND t.user_id = ar.user_id
+            WHERE ar.user_id = 1
+            GROUP BY ar.id, ar.client_name;
+        */
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Transaction t WHERE t.accountRecord.id = :accountRecordId AND t.user.id = :userId")
+    // delete all transactions of account record id
+    void deleteTransactionsByAccountRecordIdAndUserId(@Param("accountRecordId") Long accountRecordId, 
+                                                       @Param("userId") Long userId);
 
 }

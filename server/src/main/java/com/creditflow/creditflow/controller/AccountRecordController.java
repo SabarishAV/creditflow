@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,6 +60,13 @@ public class AccountRecordController {
         }else{
             return new ResponseEntity<>(accountRecordName,HttpStatus.OK);
         }
+    }
+
+    @DeleteMapping("/{accountRecordId}/{userId}")
+    // deletes all trasactions and the account record of the given account recod id
+    public ResponseEntity<String> deleteTransactionsAndAccountRecord(@PathVariable Long accountRecordId, @PathVariable Long userId){
+        accountRecordService.deleteTransactionsAndAccountRecord(accountRecordId, userId);
+        return new ResponseEntity<>("Transactions and account record deleted successfully",HttpStatus.OK);
     }
 
 }

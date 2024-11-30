@@ -6,16 +6,21 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.creditflow.creditflow.dto.AccountRecord.ReturnAccountRecord;
 import com.creditflow.creditflow.models.AccountRecord;
 import com.creditflow.creditflow.repository.AccountRecordRepository;
+import com.creditflow.creditflow.repository.TransactionRepository;
 
 @Service
 public class AccountRecordService {
 
     @Autowired
     private AccountRecordRepository accountRecordRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     // create new account record
     public Long createAccountRecord(Long userId, String clientName) {
@@ -43,5 +48,12 @@ public class AccountRecordService {
     public Optional<String> getAccountRecordName(Long accountRecordId) {
         Optional<AccountRecord> optionalAccountRecord = accountRecordRepository.findById(accountRecordId);
         return optionalAccountRecord.map(AccountRecord::getClientName);
+    }
+
+    // deletes all trasactions and account record of the given account recod id
+    @Transactional
+    public void deleteTransactionsAndAccountRecord(Long accountRecordId,Long userId){
+        transactionRepository.deleteTransactionsByAccountRecordIdAndUserId(accountRecordId, userId);
+        accountRecordRepository.deleteAccountRecordByAccountRecordIdAndUserId(accountRecordId, userId);
     }
 }
