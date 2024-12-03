@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState();
+  const [todaysBalanceColor, setTodaysBalanceColor] = useState("black");
+  const [totalBalanceColor, setTotalBalanceColor] = useState("black");
   const token = Cookie.get("token");
   const userId = getUserId();
   const navigate = useNavigate()
@@ -24,6 +26,10 @@ const Dashboard = () => {
         }
       );
       setDashboardData(response.data);
+      if (response.data) {
+        setTodaysBalanceColor(parseFloat(response.data.todaysTotalTransaction) <= 0 ? "red" : "green");
+        setTotalBalanceColor(parseFloat(response.data.balance) <= 0 ? "red" : "green");
+      }
     }catch{
       navigate("/login")
     }
@@ -38,16 +44,18 @@ const Dashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
+
   return (
     <>
       <div className={style.dasboardContainer}>
         <div className={style.amountContainer}>
           <div className={style.amountContainerLeft}>
             <p className={style.amountContainerLeftBalanceHeading}>
-              Recieved Today
+              Today&rsquo;s Balance
             </p>
             <p className={style.amountContainerLeftBalance}>
-              <span>
+              <span style={{color: todaysBalanceColor}}>
                 {!dashboardData
                   ? "Loading..."
                   : dashboardData.todaysTotalTransaction}
@@ -60,7 +68,7 @@ const Dashboard = () => {
               Aggregate Balance
             </p>
             <p className={style.amountContainerRightBalance}>
-              <span>
+              <span style={{color: totalBalanceColor}}>
                 {!dashboardData ? "Loading..." : dashboardData.balance}
               </span>{" "}
               Rs

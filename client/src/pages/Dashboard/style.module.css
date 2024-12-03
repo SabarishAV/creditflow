@@ -22,13 +22,11 @@
 .amountContainerRightBalance span{
     font-size: 3rem;
     font-weight: 600;
-    color: red;
     padding-left: 3rem;
 }
 .amountContainerLeftBalance span{
     font-size: 3rem;
     font-weight: 600;
-    color: green;
     padding-left: 3rem;
 }
 .dashboardContentContainer{
