@@ -11,6 +11,12 @@
     padding-inline: 2rem;
     cursor: pointer;
 }
+.accountRecordBalance{
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
 @media (max-width: 1024px) {
     .accountRecord{
         width: 100%;

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import style from "./style.module.css";
+import DeleteAccountRecoedDialog from "../DeleteAccountRecoedDialog";
 
 const AccountRecord = ({ index, accountRecord, onClick, color }) => {
   return (
@@ -22,6 +23,9 @@ const AccountRecord = ({ index, accountRecord, onClick, color }) => {
               : accountRecord.totalAmount}
           Rs
         </p>
+      </div>
+      <div>
+        <DeleteAccountRecoedDialog id={accountRecord.accountRecordId}/>
       </div>
     </div>
   );
