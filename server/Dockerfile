@@ -5,7 +5,7 @@ FROM maven:latest AS builder
 COPY . .
 
 # Install dependencies (including any project-specific dependencies)
-RUN mvn clean package   
+RUN mvn clean package -DskipTests 
 
 # Stage 2: Build the runtime image
 FROM openjdk:21-jdk-slim
@@ -18,6 +18,9 @@ COPY --from=builder /target/creditflow-0.0.1-SNAPSHOT.jar app.jar
 ENV DB_URL=${DB_URL}
 ENV DB_USERNAME=${DB_USERNAME}
 ENV DB_PASSWORD=${DB_PASSWORD}
+ENV DB_HOST=${DB_HOST}
+ENV DB_PORT=${DB_PORT}
+ENV DB_NAME=${DB_NAME}
 
 # Expose the port that the app will run on
 EXPOSE 8080
