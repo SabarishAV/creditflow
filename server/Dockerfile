@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM maven:3.8.4-openjdk-21-slim AS builder
+FROM maven:latest AS builder
 
 # Set the working directory for the build
 WORKDIR /build
