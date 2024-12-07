@@ -13,7 +13,7 @@ import PaidIcon from "@mui/icons-material/Paid";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Cookies from "js-cookie";
-import validateToken from '../../middleware/validateToken';
+import validateToken from "../../middleware/validateToken";
 
 const NAVIGATION = [
   {
@@ -104,24 +104,25 @@ function useDemoRouter(initialPath) {
 }
 
 export default function Layout(props) {
-
   const navigate = useNavigate();
 
   React.useEffect(() => {
     const element = document.querySelector(".css-1je49cu-MuiTypography-root");
-    element.textContent = "creditflow";
-
-    try{
-      const token = Cookies.get("token");
-      if(token){
-        validateToken(token);
-      }else{
-        throw new Error("No token")
-      }
-    }catch{
-      navigate('/login')
+    if (element) {
+      element.textContent = "creditflow";
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    try {
+      const token = Cookies.get("token");
+      if (token) {
+        validateToken(token);
+      } else {
+        throw new Error("No token");
+      }
+    } catch {
+      navigate("/login");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // eslint-disable-next-line react/prop-types
