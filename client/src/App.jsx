@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Transactions from "./pages/Transactions";
 import Balance from "./pages/Balance";
 import TransactionsForAccountRecord from "./pages/TransactionsForAccountRecord";
+import Logout from "./components/Logout";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/transactions" element={<Transactions/>}/>
           <Route path="/balance" element={<Balance/>}/>
           <Route path="/balance/:accountRecordId" element={<TransactionsForAccountRecord/>}/>
+          <Route path="/logout" element={<Logout/>}/>
         </Route>
       </Routes>
     </>

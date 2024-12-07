@@ -5,3 +5,11 @@
 .MuiTypography-root {
     font-family: 'Montserrat'!important;
 }
+.css-1je49cu-MuiTypography-root {
+    visibility: hidden;
+}
+.css-1je49cu-MuiTypography-root::before {
+    content: "creditflow" !important;
+    visibility: visible;
+    display: inline-block;
+}
