@@ -107,10 +107,13 @@ export default function Layout(props) {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    const element = document.querySelector(".css-1je49cu-MuiTypography-root");
-    if (element) {
-      element.textContent = "creditflow";
-    }
+    const interval = setInterval(() => {
+      const element = document.querySelector(".css-1je49cu-MuiTypography-root");
+      if (element) {
+        element.textContent = "creditflow";
+        clearInterval(interval);
+      }
+    }, 100);
 
     try {
       const token = Cookies.get("token");
