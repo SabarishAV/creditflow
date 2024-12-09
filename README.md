@@ -2,12 +2,15 @@
 
 A digital ledger app for managing credit and debit transactions, enabling users to easily track payments, monitor balances, and stay on top of their finances.
 
+<img src="./assets/creditflow.gif">
+
 ## Prerequisites
 
 **Server (Java Spring Boot):**
 
 - Java Development Kit (JDK): [Download Link](https://www.google.com/url?sa=E&source=gmail&q=https://www.oracle.com/java/technologies/downloads/) (version 21 or later recommended)
 - Maven: [Download Link](https://www.google.com/url?sa=E&source=gmail&q=https://maven.apache.org/)
+- Postgres
 
 **Client (React):**
 
