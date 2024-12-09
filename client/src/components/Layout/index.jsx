@@ -127,6 +127,14 @@ export default function Layout(props) {
 
   const demoWindow = window ? window() : undefined;
 
+  const intervalId = setInterval(() => {
+    const headings = document.querySelectorAll("h6");
+    if (headings.length !== 0) {
+      headings[0].innerHTML = "creditflow";
+      clearInterval(intervalId);
+    }
+  }, 500);
+
   return (
     <AppProvider
       navigation={NAVIGATION}
