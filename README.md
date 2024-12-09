@@ -14,10 +14,10 @@ A digital ledger app for managing credit and debit transactions, enabling users 
 - Node.js: [Download Link](https://www.google.com/url?sa=E&source=gmail&q=https://nodejs.org/)
 - npm, pnpm or <b>yarn (preffered)</b>
 
-
 ## Running the Application
 
 **1. Clone this repository:**
+
 <ul>
 <li>Using Git</li>
 
@@ -93,6 +93,7 @@ echo $DB_NAME
 ```bash
 mvn spring-boot:run
 ```
+
 <h3>OR</h3>
 
 <li>To compile and run the app <b>(OPTIONAL)</b></li>
@@ -101,18 +102,18 @@ mvn spring-boot:run
 ```bash
 mvn clean package -DskipTests
 ```
+
 <p>Run the compiled app using:</p>
 
 ```bash
 java -jar target/creditflow-0.0.1-SNAPSHOT.jar
 ```
+
 </ul>
 
 <li>You can see the server running at port <a href="http://localhost:8080">8080</a></li>
 
 </ol>
-
-
 
 **3. Client (Frontend):**
 
@@ -130,26 +131,33 @@ java -jar target/creditflow-0.0.1-SNAPSHOT.jar
 ```bash
  cp .env.example .env
 ```
+
 <li>Change the url to backend server url</li>
 </ul>
 
-<li>Run the app using:</li>
+<li>Install all dependencies and run the app:</li>
 <ul>
 <li>If using npm</li>
 
 ```bash
- npm run dev
+npm install
+npm run dev
 ```
+
 <li>If using pnpm</li>
 
 ```bash
- pnpm dev
+pnpm install
+pnpm dev
 ```
+
 <li>If using yarn <b>(preffered)</b></li>
 
 ```bash
- yarn dev
+yarn install
+yarn dev
 ```
+
 </ul>
 
 <li>You can see the frontend app running at port <a href="http://localhost:5173">5173</a></li>
